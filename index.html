@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsungie Ncube - Software Requirements & Implementation Consultant</title>
+    <meta name="description" content="Expert software consultant with 8+ years experience helping organizations plan, design, and implement complex software systems. Led Zimbabwe's national EHR serving 7M+ users.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 350px 1fr 350px;
+            gap: 20px;
+        }
+        
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #ec4899;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .header-nav a:hover {
+            opacity: 1;
+        }
+        
+        /* Left Panel */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .hero-card {
+            background: white;
+            color: #1e293b;
+            padding: 2rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #ec4899;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        .hero-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-card p {
+            font-size: 1rem;
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: #ec4899;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .cta-button:hover {
+            background: #be185d;
+            transform: translateY(-2px);
+        }
+        
+        .clients-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .client-avatars {
+            display: flex;
+            margin-left: -10px;
+        }
+        
+        .client-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: -5px;
+        }
+        
+        .services-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+            border-top: 4px solid #ec4899;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .service-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: #ec4899;
+            color: white;
+            border-color: #ec4899;
+        }
+        
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .service-item:hover {
+            background: #f8fafc;
+            border-color: #ec4899;
+        }
+        
+        .service-item.available {
+            position: relative;
+        }
+        
+        .service-item.available::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+        
+        .service-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .service-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .service-info p {
+            font-size: 0.8rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .price {
+            color: #ec4899;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Center Panel */
+        .center-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+            border-left: 4px solid #ec4899;
+        }
+        
+        .main-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .main-subtitle {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e40af;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .reviews-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+        }
+        
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .rating-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .stars {
+            color: #fbbf24;
+            font-size: 1.25rem;
+        }
+        
+        .rating-count {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .review-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: #f8fafc;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ec4899;
+        }
+        
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .review-content h5 {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .review-time {
+            color: #1e40af;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .review-text {
+            color: #1e293b;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Right Panel */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .success-card {
+            background: #10b981;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 3px solid #ec4899;
+        }
+        
+        .success-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .appointment-details {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+            border-top: 4px solid #ec4899;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+        }
+        
+        .consultant-profile {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899, #be185d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 700;
+            border: 3px solid #f1f5f9;
+        }
+        
+        .consultant-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .consultant-title {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .consultant-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            color: #10b981;
+        }
+        
+        .consultation-price {
+            color: #ec4899;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .book-btn {
+            width: 100%;
+            background: #1e40af;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .book-btn:hover {
+            background: #1e3a8a;
+        }
+        
+        .calendar-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+            border-left: 4px solid #ec4899;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0.25rem;
+        }
+        
+        .calendar-month {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.25rem;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-day.header {
+            font-weight: 600;
+            color: #64748b;
+            cursor: default;
+        }
+        
+        .calendar-day.available:hover {
+            background: #f1f5f9;
+        }
+        
+        .calendar-day.selected {
+            background: #ec4899;
+            color: white;
+        }
+        
+        .calendar-day.today {
+            background: #1e40af;
+            color: white;
+        }
+        
+        .most-requested {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f5f9;
+        }
+        
+        .service-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        
+        .category-card {
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .category-card.ehr {
+            background: linear-gradient(135deg, #ec4899, #be185d);
+        }
+        
+        .category-card.crm {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+        
+        .category-card.erp {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .category-card.planning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .upcoming-section {
+            background: white;
+            color: #1e293b;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 3px solid #ec4899;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upcoming-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .upcoming-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 1px solid #ec4899;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .upcoming-time {
+            text-align: center;
+            min-width: 60px;
+        }
+        
+        .upcoming-date {
+            font-size: 0.8rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .upcoming-hour {
+            font-weight: 600;
+        }
+        
+        .upcoming-details h5 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .upcoming-details p {
+            font-size: 0.875rem;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 800px;
+                gap: 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .header-nav {
+                justify-content: center;
+            }
+            
+            /* Stack panels vertically on mobile */
+            .left-panel, .center-panel, .right-panel {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">Tsungie Ncube Consulting</div>
+            <nav class="header-nav">
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <!-- Hero Card with Profile -->
+            <div class="hero-card">
+                <!-- Profile Image Section -->
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <div class="profile-image-container" style="width: 100px; height: 100px; border-radius: 50%; background: #f1f5f9; border: 4px solid #ec4899; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3); margin-bottom: 1rem;">
+                        <!-- Replace this with your actual image -->
+                        <img src="your-photo.jpg" alt="Tsungie Ncube" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display: none; width: 100%; height: 100%; background: linear-gradient(135deg, #ec4899, #be185d); color: white; font-size: 1.5rem; font-weight: 700; border-radius: 50%; align-items: center; justify-content: center;">TN</div>
+                    </div>
+                    <div style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 0.25rem;">Tsungie Ncube</div>
+                    <div style="color: #1e40af; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem;">Lead Software Implementation Consultant</div>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: #10b981; font-weight: 600;">
+                            <span>✓</span>
+                            <span>Verified</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: #10b981; font-weight: 600;">
+                            <span>⭐</span>
+                            <span>8 Years</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: #10b981; font-weight: 600;">
+                            <span>⭐</span>
+                            <span>4.9 Rating</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Software Implementation Consultant</h2>
+                <p>Expert requirements gathering that saves organizations from costly mistakes</p>
+                <a href="#contact" class="cta-button">📅 Book Consultation</a>
+                <div class="clients-info">
+                    <div class="client-avatars">
+                        <div class="client-avatar">ZH</div>
+                        <div class="client-avatar">MH</div>
+                        <div class="client-avatar">RS</div>
+                        <div class="client-avatar">+</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.25rem; font-weight: 600;">700+</div>
+                        <div style="font-size: 0.8rem; color: #1e40af; font-weight: 600;">Organizations Served</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointment Details -->
+            <div class="appointment-details">
+                <h3 class="section-title">Next Available Slots</h3>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">📅</div>
+                    <div>
+                        <div style="font-weight: 600;">January 20, 2025</div>
+                        <div style="font-size: 0.875rem; color: #1e40af; font-weight: 500;">Appointment Date</div>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">🕐</div>
+                    <div>
+                        <div style="font-weight: 600;">2:00 PM</div>
+                        <div style="font-size: 0.875rem; color: #1e40af; font-weight: 500;">Appointment Time</div>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon">🏢</div>
+                    <div>
+                        <div style="font-weight: 600;">Video Call</div>
+                        <div style="font-size: 0.875rem; color: #1e40af; font-weight: 500;">Meeting Location</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consultant Quick Info -->
+            <div class="consultant-profile">
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <div class="consultation-price">
+                        $150 <span style="font-size: 0.875rem; font-weight: 400; color: #1e40af;">/hour</span>
+                    </div>
+                    <div style="font-size: 0.875rem; color: #10b981; font-weight: 600; margin-bottom: 1rem;">💼 Available for consultation</div>
+                </div>
+                
+                <button class="book-btn">Book Now</button>
+            </div>
+
+            <!-- Most Requested Services -->
+            <div class="most-requested">
+                <h3 class="section-title">Most Requested Services</h3>
+                <div style="text-align: center; margin-bottom: 1rem; font-size: 0.875rem; color: #1e40af; font-weight: 500;">See All</div>
+                
+                <div class="service-categories">
+                    <div class="category-card ehr">
+                        <div>📋</div>
+                        <div>EHR Systems</div>
+                        <div style="font-size: 0.8rem; opacity: 0.9;">Healthcare</div>
+                    </div>
+                    
+                    <div class="category-card crm">
+                        <div>👥</div>
+                        <div>CRM Planning</div>
+                        <div style="font-size: 0.8rem; opacity: 0.9;">Sales & Marketing</div>
+                    </div>
+                    
+                    <div class="category-card erp">
+                        <div>🏢</div>
+                        <div>ERP Implementation</div>
+                        <div style="font-size: 0.8rem; opacity: 0.9;">Enterprise</div>
+                    </div>
+                    
+                    <div class="category-card planning">
+                        <div>🎯</div>
+                        <div>Project Planning</div>
+                        <div style="font-size: 0.8rem; opacity: 0.9;">Strategy</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Consultations -->
+            <div class="upcoming-section">
+                <div class="upcoming-header">
+                    <h3 style="font-size: 1.1rem; font-weight: 600;">Upcoming Consultations</h3>
+                    <span style="font-size: 1.5rem; cursor: pointer;">›</span>
+                </div>
+                
+                <div class="upcoming-item">
+                    <div class="upcoming-time">
+                        <div class="upcoming-date">Mon, 20 Jan 2025</div>
+                        <div class="upcoming-hour">14:00 - 15:00</div>
+                    </div>
+                    <div class="upcoming-details">
+                        <h5>Requirements Analysis</h5>
+                        <p>Healthcare Practice CRM</p>
+                    </div>
+                </div>
+                
+                <div class="upcoming-item">
+                    <div class="upcoming-time">
+                        <div class="upcoming-date">Wed, 22 Jan 2025</div>
+                        <div class="upcoming-hour">10:00 - 11:30</div>
+                    </div>
+                    <div class="upcoming-details">
+                        <h5>Vendor Evaluation</h5>
+                        <p>ERP System Selection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Panel -->
+        <div class="center-panel">
+            <!-- Main Content -->
+            <div class="main-content">
+                <h1 class="main-title">Stop Software Projects From Failing</h1>
+                <p class="main-subtitle" style="color: #1e40af; font-size: 1.1rem; margin-bottom: 2rem; font-weight: 500;">With 8+ years of experience building large-scale systems, including Zimbabwe's national EHR serving 7+ million users across 700+ facilities</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" style="background: linear-gradient(135deg, #ec4899, #be185d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">8+</span>
+                        <span class="stat-label" style="color: #1e40af; font-weight: 600;">Years Experience</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" style="background: linear-gradient(135deg, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">7M+</span>
+                        <span class="stat-label" style="color: #10b981; font-weight: 600;">Users Served</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" style="background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">700+</span>
+                        <span class="stat-label" style="color: #f59e0b; font-weight: 600;">Organizations</span>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: #1e40af; font-weight: 700;">Why Projects Fail:</h3>
+                <ul style="margin-bottom: 2rem; padding-left: 1.5rem; color: #ef4444;">
+                    <li>70% fail due to poor requirements gathering</li>
+                    <li>Stakeholders have different expectations</li>
+                    <li>Integration challenges discovered too late</li>
+                    <li>Workflow disruptions not anticipated</li>
+                    <li>Training and change management afterthoughts</li>
+                </ul>
+
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: #10b981; font-weight: 700;">My Approach:</h3>
+                <ul style="padding-left: 1.5rem; color: #059669;">
+                    <li>✅ Comprehensive requirements analysis upfront</li>
+                    <li>✅ Stakeholder alignment workshops</li>
+                    <li>✅ Risk mitigation strategies</li>
+                    <li>✅ Realistic implementation roadmaps</li>
+                    <li>✅ Change management planning</li>
+                </ul>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h3 class="section-title">Client Reviews</h3>
+                    <a href="#" style="color: #1e40af; text-decoration: none; font-size: 0.875rem; font-weight: 600;">View All</a>
+                </div>
+
+                <div class="rating-display">
+                    <span class="rating-number">4.9</span>
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <div class="rating-count" style="color: #1e40af; font-size: 0.875rem; font-weight: 500;">89+ Reviews</div>
+                    </div>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-avatar">MH</div>
+                    <div class="review-content">
+                        <h5>Michael Harrison</h5>
+                        <div class="review-time">2 weeks ago</div>
+                        <div class="stars" style="color: #fbbf24; font-size: 0.875rem;">★★★★★</div>
+                        <p class="review-text">Excellent service! Tsungie was thorough in analyzing our EHR requirements. The detailed planning saved us months of implementation time.</p>
+                    </div>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-avatar">SJ</div>
+                    <div class="review-content">
+                        <h5>Sarah Johnson</h5>
+                        <div class="review-time">1 month ago</div>
+                        <div class="stars" style="color: #fbbf24; font-size: 0.875rem;">★★★★★</div>
+                        <p class="review-text">Professional consultation that helped us avoid a $200K mistake. His vendor evaluation process is incredibly detailed and objective.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <!-- Services Section -->
+            <div class="services-section">
+                <h3 class="section-title">Recommended Services</h3>
+                <div class="service-filter">
+                    <button class="filter-btn active">Latest</button>
+                    <button class="filter-btn">Planning</button>
+                    <button class="filter-btn">Implementation</button>
+                </div>
+
+                <div class="service-item available">
+                    <div class="service-avatar" style="background: linear-gradient(135deg, #ec4899, #be185d);">📋</div>
+                    <div class="service-info">
+                        <h4>Requirements Gathering</h4>
+                        <p>Complete system analysis</p>
+                        <div class="price">$2,500 /project</div>
+                    </div>
+                </div>
+
+                <div class="service-item available">
+                    <div class="service-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">🔍</div>
+                    <div class="service-info">
+                        <h4>Vendor Evaluation</h4>
+                        <p>Objective solution analysis</p>
+                        <div class="price">$1,500 /evaluation</div>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🎯</div>
+                    <div class="service-info">
+                        <h4>Implementation Planning</h4>
+                        <p>Detailed project roadmap</p>
+                        <div class="price">$3,500 /plan</div>
+                    </div>
+                </div>
+
+                <div class="service-item available">
+                    <div class="service-avatar" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🔗</div>
+                    <div class="service-info">
+                        <h4>System Integration</h4>
+                        <p>Seamless data flow design</p>
+                        <div class="price">$4,000 /integration</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Improved Calendar -->
+            <div class="calendar-section">
+                <h3 class="section-title">Schedule Consultation</h3>
+                <div class="calendar-header">
+                    <div class="calendar-nav">
+                        <button class="nav-btn">‹</button>
+                        <span class="calendar-month">January 2025</span>
+                        <button class="nav-btn">›</button>
+                    </div>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 12px; text-align: center; margin-bottom: 1rem; border: 2px solid #ec4899;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">📅</div>
+                    <div style="font-size: 1.1rem; font-weight: 600; color: #1e293b;">Today</div>
+                    <div style="font-size: 1.25rem; font-weight: 700; color: #ec4899;">January 18, 2025</div>
+                    <div style="font-size: 0.875rem; color: #1e40af; font-weight: 500;">Saturday</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button class="cta-button" style="width: 100%;">📅 View Full Calendar</button>
+                </div>
+            </div>
+        </div>
